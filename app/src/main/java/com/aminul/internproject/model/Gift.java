@@ -32,9 +32,6 @@ public class Gift {
 
     @Override
     public String toString() {
-        return "Gift{" +
-                "id=" + id +
-                ", giftName='" + giftName + '\'' +
-                '}';
+        return giftName;
     }
 }

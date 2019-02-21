@@ -32,9 +32,6 @@ public class PhysicianSample {
 
     @Override
     public String toString() {
-        return "PhysicianSample{" +
-                "id=" + id +
-                ", sampleName='" + sampleName + '\'' +
-                '}';
+        return sampleName;
     }
 }

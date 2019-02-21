@@ -32,9 +32,6 @@ public class Literature {
 
     @Override
     public String toString() {
-        return "Literature{" +
-                "id=" + id +
-                ", literatureName='" + literatureName + '\'' +
-                '}';
+        return literatureName;
     }
 }

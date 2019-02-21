@@ -4,51 +4,52 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataModelResponse {
 
     @SerializedName("product_group_list")
     @Expose
-    private ArrayList<ProductGroup> productGroupList = null;
+    private List<ProductGroup> productGroupList = null;
     @SerializedName("literature_list")
     @Expose
-    private ArrayList<Literature> literatureList = null;
+    private List<Literature> literatureList = null;
     @SerializedName("physician_sample_list")
     @Expose
-    private ArrayList<PhysicianSample> physicianSampleList = null;
+    private List<PhysicianSample> physicianSampleList = null;
     @SerializedName("gift_list")
     @Expose
-    private ArrayList<Gift> giftList = null;
+    private List<Gift> giftList = null;
 
-    public ArrayList<ProductGroup> getProductGroupList() {
+    public List<ProductGroup> getProductGroupList() {
         return productGroupList;
     }
 
-    public void setProductGroupList(ArrayList<ProductGroup> productGroupList) {
+    public void setProductGroupList(List<ProductGroup> productGroupList) {
         this.productGroupList = productGroupList;
     }
 
-    public ArrayList<Literature> getLiteratureList() {
+    public List<Literature> getLiteratureList() {
         return literatureList;
     }
 
-    public void setLiteratureList(ArrayList<Literature> literatureList) {
+    public void setLiteratureList(List<Literature> literatureList) {
         this.literatureList = literatureList;
     }
 
-    public ArrayList<PhysicianSample> getPhysicianSampleList() {
+    public List<PhysicianSample> getPhysicianSampleList() {
         return physicianSampleList;
     }
 
-    public void setPhysicianSampleList(ArrayList<PhysicianSample> physicianSampleList) {
+    public void setPhysicianSampleList(List<PhysicianSample> physicianSampleList) {
         this.physicianSampleList = physicianSampleList;
     }
 
-    public ArrayList<Gift> getGiftList() {
+    public List<Gift> getGiftList() {
         return giftList;
     }
 
-    public void setGiftList(ArrayList<Gift> giftList) {
+    public void setGiftList(List<Gift> giftList) {
         this.giftList = giftList;
     }
 }
