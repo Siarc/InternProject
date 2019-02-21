@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.aminul.internproject.R;
-import com.aminul.internproject.model.ModelLists;
-import com.aminul.internproject.model.ProductGroup;
+import com.aminul.internproject.model.DataModelResponse;
 import com.aminul.internproject.utils.GetDataService;
 import com.aminul.internproject.utils.RetrofitInstance;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,26 +56,41 @@ public class MainActivity extends AppCompatActivity {
 
         GetDataService service = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
 
-        Call<ModelLists> call = service.getData();
-
         /*Log the URL called*/
-        Log.wtf("URL Called", call.request().url() + "");
+        //Log.wtf("URL Called", call.request().url() + "");
 
-        call.enqueue(new Callback<ModelLists>() {
+
+        Call<DataModelResponse> call = service.getData();
+        call.enqueue(new Callback<DataModelResponse>() {
             @Override
-            public void onResponse(Call<ModelLists> call, Response<ModelLists> response) {
+            public void onResponse(Call<DataModelResponse> call, Response<DataModelResponse> response) {
 
                 Log.d(TAG, "onResponse: "+response);
+
+                if(response.isSuccessful()){
+
+                    DataModelResponse dataModelResponse = response.body();
+                    showData(dataModelResponse);
+
+                }
             }
 
+
+
             @Override
-            public void onFailure(Call<ModelLists> call, Throwable t) {
+            public void onFailure(Call<DataModelResponse> call, Throwable t) {
 
                 Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
 
             }
         });
 
+
+    }
+
+    private void showData(DataModelResponse dataModelResponse) {
+
+        Log.d(TAG, "showData: "+new Gson().toJson(dataModelResponse));
 
     }
 

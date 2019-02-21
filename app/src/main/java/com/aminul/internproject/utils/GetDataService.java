@@ -1,10 +1,6 @@
 package com.aminul.internproject.utils;
 
-import com.aminul.internproject.model.Gift;
-import com.aminul.internproject.model.Literature;
-import com.aminul.internproject.model.ModelLists;
-import com.aminul.internproject.model.PhysicianSample;
-import com.aminul.internproject.model.ProductGroup;
+import com.aminul.internproject.model.DataModelResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -19,6 +15,6 @@ public interface GetDataService {
      * @return
      */
     @GET("data.json")
-    Call<ModelLists> getData();
+    Call<DataModelResponse> getData();
 
 }
