@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,16 +44,20 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText accompaniedWith;
     private TextInputEditText remarks;
 
-    private Spinner productGroupSpinner;
-    private Spinner literatureSpinner;
-    private Spinner physicianSampleSpinner;
-    private Spinner giftSpinner;
+    private AutoCompleteTextView productGroup;
+    private AutoCompleteTextView literature;
+    private AutoCompleteTextView physicianSample;
+    private AutoCompleteTextView gift;
+
+    private EditText literatureQuantity;
+    private EditText physicianQuantity;
+    private EditText giftQuantity;
     private Button submit;
 
-    List<Gift> giftList = new ArrayList<>();
-    List<Literature> literatureList = new ArrayList<>();
-    List<PhysicianSample> physicianSampleList = new ArrayList<>();
-    List<ProductGroup> productGroupList = new ArrayList<>();
+//    List<Gift> giftList = new ArrayList<>();
+//    List<Literature> literatureList = new ArrayList<>();
+//    List<PhysicianSample> physicianSampleList = new ArrayList<>();
+//    List<ProductGroup> productGroupList = new ArrayList<>();
 
 
     @Override
@@ -66,27 +72,39 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void init() {
+
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        accompaniedWith = findViewById(R.id.accompanied_with);
+        remarks = findViewById(R.id.remarks);
+        submit = findViewById(R.id.submit);
+
+        productGroup = findViewById(R.id.product_group);
+        literature = findViewById(R.id.literature);
+        physicianSample = findViewById(R.id.physician_sample);
+        gift = findViewById(R.id.gift);
+
+    }
+
     private void loadData(Bundle savedInstanceState) {
 
         if (savedInstanceState != null) {
 
-            Log.d(TAG, "loadData: "+productGroupList);
+//            Log.d(TAG, "loadData: "+productGroupList);
 
-            productGroupSpinner.setSelection(savedInstanceState.getInt("productOutSate",0));
-            literatureSpinner.setSelection(savedInstanceState.getInt("literatureOutState",0));
-            physicianSampleSpinner.setSelection(savedInstanceState.getInt("simpleOutState",0));
-            giftSpinner.setSelection(savedInstanceState.getInt("giftOutState",0));
+//            productGroupSpinner.setSelection(savedInstanceState.getInt("productOutSate",0));
+//            literatureSpinner.setSelection(savedInstanceState.getInt("literatureOutState",0));
+//            physicianSampleSpinner.setSelection(savedInstanceState.getInt("simpleOutState",0));
+//            giftSpinner.setSelection(savedInstanceState.getInt("giftOutState",0));
+
+            productGroup.setText(savedInstanceState.getString("accOutState"));
+            literature.setText(savedInstanceState.getString("accOutState"));
+            physicianSample.setText(savedInstanceState.getString("accOutState"));
+            gift.setText(savedInstanceState.getString("accOutState"));
 
             accompaniedWith.setText(savedInstanceState.getString("accOutState"));
             remarks.setText(savedInstanceState.getString("remarksOutState"));
-
-
-            Log.d(TAG, "loadData: " +savedInstanceState.getInt("productOutSate"));
-            Log.d(TAG, "loadData: " +savedInstanceState.getInt("literatureOutState"));
-            Log.d(TAG, "loadData: " +savedInstanceState.getInt("simpleOutState"));
-            Log.d(TAG, "loadData: " +savedInstanceState.getInt("giftOutState"));
-            Log.d(TAG, "loadData: " +savedInstanceState.getString("accOutState"));
-            Log.d(TAG, "loadData: " +savedInstanceState.getString("remarksOutState"));
 
 
 
@@ -97,36 +115,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+//        outState.putInt("productOutSate", productGroupSpinner.getSelectedItemPosition());
+//        outState.putInt("literatureOutState", literatureSpinner.getSelectedItemPosition());
+//        outState.putInt("simpleOutState", physicianSampleSpinner.getSelectedItemPosition());
+//        outState.putInt("giftOutState", giftSpinner.getSelectedItemPosition());
 
 
-        outState.putInt("productOutSate", productGroupSpinner.getSelectedItemPosition());
-        outState.putInt("literatureOutState", literatureSpinner.getSelectedItemPosition());
-        outState.putInt("simpleOutState", physicianSampleSpinner.getSelectedItemPosition());
-        outState.putInt("giftOutState", giftSpinner.getSelectedItemPosition());
-
+        outState.putString("productGroupOutState", Objects.requireNonNull(productGroup.getText()).toString().trim());
+        outState.putString("literatureOutState", Objects.requireNonNull(literature.getText()).toString().trim());
+        outState.putString("physicianSampleOutState", Objects.requireNonNull(physicianSample.getText()).toString().trim());
+        outState.putString("giftOutState", Objects.requireNonNull(gift.getText()).toString().trim());
         outState.putString("accOutState", Objects.requireNonNull(accompaniedWith.getText()).toString().trim());
         outState.putString("remarksOutState", Objects.requireNonNull(remarks.getText()).toString().trim());
 
 
     }
-
-    private void init() {
-
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        accompaniedWith = findViewById(R.id.accompanied_with);
-        remarks = findViewById(R.id.remarks);
-        submit = findViewById(R.id.submit);
-
-        productGroupSpinner = findViewById(R.id.product_group_spinner);
-        literatureSpinner = findViewById(R.id.literature_spinner);
-        physicianSampleSpinner = findViewById(R.id.physician_sample_spinner);
-        giftSpinner = findViewById(R.id.gift_spinner);
-
-    }
-
-
 
     /**
      * Retrofit
@@ -168,20 +171,93 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "showData: "+new Gson().toJson(dataModelResponse));
 
-        giftList = dataModelResponse.getGiftList();
-        literatureList = dataModelResponse.getLiteratureList();
-        physicianSampleList = dataModelResponse.getPhysicianSampleList();
-        productGroupList = dataModelResponse.getProductGroupList();
+//        giftList = dataModelResponse.getGiftList();
+//        literatureList = dataModelResponse.getLiteratureList();
+//        physicianSampleList = dataModelResponse.getPhysicianSampleList();
+//        productGroupList = dataModelResponse.getProductGroupList();
 
-        Log.d(TAG, "showData:Gift: "+giftList);
+//        Log.d(TAG, "showData:Gift: "+giftList);
+//
+//        Log.d(TAG, "showData:Literature: "+literatureList);
+//
+//        Log.d(TAG, "showData:Sample: "+physicianSampleList);
+//
+//        Log.d(TAG, "showData:Product: "+productGroupList);
 
-        Log.d(TAG, "showData:Literature: "+literatureList);
+//        spinners(giftList, literatureList, physicianSampleList, productGroupList);
 
-        Log.d(TAG, "showData:Sample: "+physicianSampleList);
+        List<String> productGroupNames = new ArrayList<>();
+        List<String> literatureNames = new ArrayList<>();
+        List<String> physicianSampleNames = new ArrayList<>();
+        List<String> giftNames = new ArrayList<>();
 
-        Log.d(TAG, "showData:Product: "+productGroupList);
+        productGroupNames.add(0,"Choose");
+        literatureNames.add(0,"Choose");
+        physicianSampleNames.add(0,"Choose");
+        giftNames.add(0,"Choose");
 
-        spinners(giftList, literatureList, physicianSampleList, productGroupList);
+        for (ProductGroup name: dataModelResponse.getProductGroupList()){
+            productGroupNames.add(name.getProductGroupName());
+            Log.d(TAG, "spinners: "+name.getProductGroupName());
+        }
+
+        Log.d(TAG, "spinners: "+productGroupNames);
+
+        for (Literature name: dataModelResponse.getLiteratureList()){
+            literatureNames.add(name.getLiteratureName());
+        }
+
+        for (PhysicianSample name: dataModelResponse.getPhysicianSampleList()){
+            physicianSampleNames.add(name.getSampleName());
+        }
+
+        for (Gift name: dataModelResponse.getGiftList()){
+            giftNames.add(name.getGiftName());
+        }
+
+        ArrayAdapter<String> arrayAdapterProductGroup = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, productGroupNames);
+
+        productGroup.setAdapter(arrayAdapterProductGroup);
+
+        productGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productGroup.showDropDown();
+            }
+        });
+
+        ArrayAdapter<String> arrayAdapterLiterature = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, literatureNames);
+
+        literature.setAdapter(arrayAdapterLiterature);
+
+        literature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                literature.showDropDown();
+            }
+        });
+
+        ArrayAdapter<String> arrayAdapterPhysicianSample = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, physicianSampleNames);
+
+        physicianSample.setAdapter(arrayAdapterPhysicianSample);
+
+        physicianSample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                physicianSample.showDropDown();
+            }
+        });
+
+        ArrayAdapter<String> arrayAdapterGift = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, giftNames);
+
+        gift.setAdapter(arrayAdapterGift);
+
+        gift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gift.showDropDown();
+            }
+        });
 
     }
 
@@ -195,119 +271,130 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        productGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
-                ((TextView)parent.getChildAt(0)).setTextSize(12);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        literatureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
-                ((TextView)parent.getChildAt(0)).setTextSize(12);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        physicianSampleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
-                ((TextView)parent.getChildAt(0)).setTextSize(12);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        giftSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
-                ((TextView)parent.getChildAt(0)).setTextSize(12);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        productGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+//                ((TextView)parent.getChildAt(0)).setTextSize(12);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        literatureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+//                ((TextView)parent.getChildAt(0)).setTextSize(12);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        physicianSampleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+//                ((TextView)parent.getChildAt(0)).setTextSize(12);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        giftSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+//                ((TextView)parent.getChildAt(0)).setTextSize(12);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
 
     private void spinners(List<Gift> giftList, List<Literature> literatureList, List<PhysicianSample> physicianSampleList, List<ProductGroup> productGroupList) {
 
-        List<String> productGroupNames = new ArrayList<>();
-        List<String> literatureNames = new ArrayList<>();
-        List<String> physicianSampleNames = new ArrayList<>();
-        List<String> giftNames = new ArrayList<>();
-
-        productGroupNames.add(0,"Choose");
-        literatureNames.add(0,"Choose");
-        physicianSampleNames.add(0,"Choose");
-        giftNames.add(0,"Choose");
-
-        for (ProductGroup name: productGroupList){
-            productGroupNames.add(name.getProductGroupName());
-            Log.d(TAG, "spinners: "+name.getProductGroupName());
-        }
-
-        Log.d(TAG, "spinners: "+productGroupNames);
-
-        for (Literature name: literatureList){
-            literatureNames.add(name.getLiteratureName());
-        }
-
-        for (PhysicianSample name: physicianSampleList){
-            physicianSampleNames.add(name.getSampleName());
-        }
-
-        for (Gift name: giftList){
-            giftNames.add(name.getGiftName());
-        }
-
-        ArrayAdapter<String> productGroupArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, productGroupNames);
-        productGroupArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        productGroupSpinner.setAdapter(productGroupArrayAdapter);
-
-
-        ArrayAdapter<String> literatureArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, literatureNames);
-        literatureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        literatureSpinner.setAdapter(literatureArrayAdapter);
-
-        ArrayAdapter<String> physicianSampleArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, physicianSampleNames);
-        physicianSampleArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        physicianSampleSpinner.setAdapter(physicianSampleArrayAdapter);
-
-        ArrayAdapter<String> giftArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, giftNames);
-        giftArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        giftSpinner.setAdapter(giftArrayAdapter);
+//        List<String> productGroupNames = new ArrayList<>();
+//        List<String> literatureNames = new ArrayList<>();
+//        List<String> physicianSampleNames = new ArrayList<>();
+//        List<String> giftNames = new ArrayList<>();
+//
+//        productGroupNames.add(0,"Choose");
+//        literatureNames.add(0,"Choose");
+//        physicianSampleNames.add(0,"Choose");
+//        giftNames.add(0,"Choose");
+//
+//        for (ProductGroup name: productGroupList){
+//            productGroupNames.add(name.getProductGroupName());
+//            Log.d(TAG, "spinners: "+name.getProductGroupName());
+//        }
+//
+//        Log.d(TAG, "spinners: "+productGroupNames);
+//
+//        for (Literature name: literatureList){
+//            literatureNames.add(name.getLiteratureName());
+//        }
+//
+//        for (PhysicianSample name: physicianSampleList){
+//            physicianSampleNames.add(name.getSampleName());
+//        }
+//
+//        for (Gift name: giftList){
+//            giftNames.add(name.getGiftName());
+//        }
+//
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productGroupNames);
+//
+//        autoCompleteTextViewProductGroup.setAdapter(arrayAdapter);
+//
+//        autoCompleteTextViewProductGroup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                autoCompleteTextViewProductGroup.showDropDown();
+//            }
+//        });
+//
+//        ArrayAdapter<String> productGroupArrayAdapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_spinner_item, productGroupNames);
+//        productGroupArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        productGroupSpinner.setAdapter(productGroupArrayAdapter);
+//
+//
+//        ArrayAdapter<String> literatureArrayAdapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_spinner_item, literatureNames);
+//        literatureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        literatureSpinner.setAdapter(literatureArrayAdapter);
+//
+//        ArrayAdapter<String> physicianSampleArrayAdapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_spinner_item, physicianSampleNames);
+//        physicianSampleArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        physicianSampleSpinner.setAdapter(physicianSampleArrayAdapter);
+//
+//        ArrayAdapter<String> giftArrayAdapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_spinner_item, giftNames);
+//        giftArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        giftSpinner.setAdapter(giftArrayAdapter);
 
     }
 
