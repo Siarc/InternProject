@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextInputEditText accompaniedWith;
     private TextInputEditText remarks;
+
     private Spinner productGroupSpinner;
     private Spinner literatureSpinner;
     private Spinner physicianSampleSpinner;
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             accompaniedWith.setText(savedInstanceState.getString("accOutState"));
             remarks.setText(savedInstanceState.getString("remarksOutState"));
 
+
             Log.d(TAG, "loadData: " +savedInstanceState.getInt("productOutSate"));
             Log.d(TAG, "loadData: " +savedInstanceState.getInt("literatureOutState"));
             Log.d(TAG, "loadData: " +savedInstanceState.getInt("simpleOutState"));
@@ -94,13 +97,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+
+
         outState.putInt("productOutSate", productGroupSpinner.getSelectedItemPosition());
         outState.putInt("literatureOutState", literatureSpinner.getSelectedItemPosition());
         outState.putInt("simpleOutState", physicianSampleSpinner.getSelectedItemPosition());
         outState.putInt("giftOutState", giftSpinner.getSelectedItemPosition());
 
-        outState.putString("accOutState", accompaniedWith.getText().toString().trim());
-        outState.putString("remarksOutState", remarks.getText().toString().trim());
+        outState.putString("accOutState", Objects.requireNonNull(accompaniedWith.getText()).toString().trim());
+        outState.putString("remarksOutState", Objects.requireNonNull(remarks.getText()).toString().trim());
 
 
     }
@@ -124,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * I do not understand how to get the data here
+     * Retrofit
      */
     private void network() {
 
@@ -195,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+                ((TextView)parent.getChildAt(0)).setTextSize(12);
 
             }
 
@@ -209,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+                ((TextView)parent.getChildAt(0)).setTextSize(12);
 
             }
 
@@ -223,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+                ((TextView)parent.getChildAt(0)).setTextSize(12);
 
             }
 
@@ -237,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+                ((TextView)parent.getChildAt(0)).setTextSize(12);
 
             }
 

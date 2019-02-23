@@ -9,10 +9,7 @@ public interface GetDataService {
 
 
     /**
-     * I do not know what to do here?
-     * how do i get different objects?
-     * it gets all the json in one go or it takes part of it?
-     * @return
+     * Gets all the data from the given url
      */
     @GET("data.json")
     Call<DataModelResponse> getData();

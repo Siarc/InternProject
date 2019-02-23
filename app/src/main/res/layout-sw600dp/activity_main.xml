@@ -71,8 +71,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="5dp"
-                    android:textSize="12sp"
-                    android:text="@string/product_group" />
+                    android:text="@string/product_group"
+                    android:textSize="20sp"/>
 
                 <Spinner
                     android:id="@+id/product_group_spinner"
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/literature"
-                        android:textSize="12sp"
+                        android:textSize="20sp"
                         android:layout_marginStart="3dp" />
 
                     <LinearLayout
@@ -116,10 +116,9 @@
                             android:layout_weight="25">
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/literature_quantity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="number"
+                                android:text="@string/_00"
                                 android:gravity="center_horizontal"/>
                         </android.support.design.widget.TextInputLayout>
 
@@ -135,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/physician_sample"
-                        android:textSize="12sp"
+                        android:textSize="20sp"
                         android:layout_marginStart="3dp" />
 
                     <LinearLayout
@@ -159,10 +158,9 @@
                             android:layout_weight="25">
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/physician_sample_quantity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="number"
+                                android:text="@string/_00"
                                 android:gravity="center_horizontal"/>
                         </android.support.design.widget.TextInputLayout>
 
@@ -178,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gift"
-                        android:textSize="12sp"
+                        android:textSize="20sp"
                         android:layout_marginStart="3dp" />
 
                     <LinearLayout
@@ -202,10 +200,9 @@
                             android:layout_weight="25">
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/gift_quantity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="number"
+                                android:text="@string/_00"
                                 android:gravity="center_horizontal"/>
                         </android.support.design.widget.TextInputLayout>
 
@@ -236,15 +233,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:hint="@string/accompanied_with"
-                    android:textColorHint="@color/colorAccent"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat">
+                    android:textColorHint="@color/colorAccent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/accompanied_with"
+                        android:textSize="20sp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorBlue"/>
+                        android:layout_height="wrap_content" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -261,16 +256,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:hint="@string/remarks"
-                    android:textColorHint="@color/colorAccent"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat">
+                    android:textColorHint="@color/colorAccent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/remarks"
                         android:layout_width="match_parent"
-                        android:layout_height="110dp"
+                        android:layout_height="250dp"
                         android:gravity="top"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorBlue"
+                        android:textSize="20sp"
                         android:maxLines="3"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -287,7 +280,6 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="0dp"
-                    android:backgroundTint="@color/colorBlue"
                     android:text="@string/submit" />
 
             </RelativeLayout>
