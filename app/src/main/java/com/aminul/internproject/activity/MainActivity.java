@@ -1,6 +1,9 @@
 package com.aminul.internproject.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aminul.internproject.R;
@@ -34,12 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private TextInputEditText productGroup;
-    private TextInputLayout literature;
-    private TextInputLayout physicianSample;
-    private TextInputLayout gift;
-    private TextInputLayout accompaniedWith;
-    private TextInputLayout remarks;
+    private TextInputEditText accompaniedWith;
+    private TextInputEditText remarks;
     private Spinner productGroupSpinner;
     private Spinner literatureSpinner;
     private Spinner physicianSampleSpinner;
@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
     List<PhysicianSample> physicianSampleList = new ArrayList<>();
     List<ProductGroup> productGroupList = new ArrayList<>();
 
-    String[] names = {"auri","Nynaeve","Jashnah"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +60,56 @@ public class MainActivity extends AppCompatActivity {
         init();
         onClickListeners();
         network();
-        spinners();
+        loadData(savedInstanceState);
+
+    }
+
+    private void loadData(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+
+            Log.d(TAG, "loadData: "+productGroupList);
+
+            productGroupSpinner.setSelection(savedInstanceState.getInt("productOutSate",0));
+            literatureSpinner.setSelection(savedInstanceState.getInt("literatureOutState",0));
+            physicianSampleSpinner.setSelection(savedInstanceState.getInt("simpleOutState",0));
+            giftSpinner.setSelection(savedInstanceState.getInt("giftOutState",0));
+
+            accompaniedWith.setText(savedInstanceState.getString("accOutState"));
+            remarks.setText(savedInstanceState.getString("remarksOutState"));
+
+            Log.d(TAG, "loadData: " +savedInstanceState.getInt("productOutSate"));
+            Log.d(TAG, "loadData: " +savedInstanceState.getInt("literatureOutState"));
+            Log.d(TAG, "loadData: " +savedInstanceState.getInt("simpleOutState"));
+            Log.d(TAG, "loadData: " +savedInstanceState.getInt("giftOutState"));
+            Log.d(TAG, "loadData: " +savedInstanceState.getString("accOutState"));
+            Log.d(TAG, "loadData: " +savedInstanceState.getString("remarksOutState"));
+
+
+
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("productOutSate", productGroupSpinner.getSelectedItemPosition());
+        outState.putInt("literatureOutState", literatureSpinner.getSelectedItemPosition());
+        outState.putInt("simpleOutState", physicianSampleSpinner.getSelectedItemPosition());
+        outState.putInt("giftOutState", giftSpinner.getSelectedItemPosition());
+
+        outState.putString("accOutState", accompaniedWith.getText().toString().trim());
+        outState.putString("remarksOutState", remarks.getText().toString().trim());
+
 
     }
 
     private void init() {
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-////        toolbar.setTitle("Intern DCR");
-////        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
-        productGroup = findViewById(R.id.product_group);
-        literature = findViewById(R.id.literature);
-        physicianSample = findViewById(R.id.physician_sample);
-        gift = findViewById(R.id.gift);
         accompaniedWith = findViewById(R.id.accompanied_with);
         remarks = findViewById(R.id.remarks);
         submit = findViewById(R.id.submit);
@@ -142,42 +176,129 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "showData:Product: "+productGroupList);
 
+        spinners(giftList, literatureList, physicianSampleList, productGroupList);
+
     }
 
     private void onClickListeners() {
-
-        productGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.d(TAG, "onClick: dialog box pop up");
-
-
-
-
-
-            }
-        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                productGroup.setText("The name of the wind");
+                Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        productGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        literatureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        physicianSampleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        giftSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.rgb(0, 172, 193));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
 
 
-    private void spinners() {
+    private void spinners(List<Gift> giftList, List<Literature> literatureList, List<PhysicianSample> physicianSampleList, List<ProductGroup> productGroupList) {
+
+        List<String> productGroupNames = new ArrayList<>();
+        List<String> literatureNames = new ArrayList<>();
+        List<String> physicianSampleNames = new ArrayList<>();
+        List<String> giftNames = new ArrayList<>();
+
+        productGroupNames.add(0,"Choose");
+        literatureNames.add(0,"Choose");
+        physicianSampleNames.add(0,"Choose");
+        giftNames.add(0,"Choose");
+
+        for (ProductGroup name: productGroupList){
+            productGroupNames.add(name.getProductGroupName());
+            Log.d(TAG, "spinners: "+name.getProductGroupName());
+        }
+
+        Log.d(TAG, "spinners: "+productGroupNames);
+
+        for (Literature name: literatureList){
+            literatureNames.add(name.getLiteratureName());
+        }
+
+        for (PhysicianSample name: physicianSampleList){
+            physicianSampleNames.add(name.getSampleName());
+        }
+
+        for (Gift name: giftList){
+            giftNames.add(name.getGiftName());
+        }
 
         ArrayAdapter<String> productGroupArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, names);
-        Log.d(TAG, "spinners: "+productGroupList);
-
+                android.R.layout.simple_spinner_item, productGroupNames);
         productGroupArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         productGroupSpinner.setAdapter(productGroupArrayAdapter);
+
+
+        ArrayAdapter<String> literatureArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, literatureNames);
+        literatureArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        literatureSpinner.setAdapter(literatureArrayAdapter);
+
+        ArrayAdapter<String> physicianSampleArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, physicianSampleNames);
+        physicianSampleArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        physicianSampleSpinner.setAdapter(physicianSampleArrayAdapter);
+
+        ArrayAdapter<String> giftArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, giftNames);
+        giftArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        giftSpinner.setAdapter(giftArrayAdapter);
 
     }
 

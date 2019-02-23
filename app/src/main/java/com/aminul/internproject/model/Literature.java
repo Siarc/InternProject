@@ -29,9 +29,4 @@ public class Literature {
     public void setLiteratureName(String literatureName) {
         this.literatureName = literatureName;
     }
-
-    @Override
-    public String toString() {
-        return literatureName;
-    }
 }

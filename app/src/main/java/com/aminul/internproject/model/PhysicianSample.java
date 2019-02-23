@@ -29,9 +29,4 @@ public class PhysicianSample {
     public void setSampleName(String sampleName) {
         this.sampleName = sampleName;
     }
-
-    @Override
-    public String toString() {
-        return sampleName;
-    }
 }

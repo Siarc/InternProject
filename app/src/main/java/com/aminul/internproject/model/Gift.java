@@ -29,9 +29,4 @@ public class Gift {
     public void setGiftName(String giftName) {
         this.giftName = giftName;
     }
-
-    @Override
-    public String toString() {
-        return giftName;
-    }
 }

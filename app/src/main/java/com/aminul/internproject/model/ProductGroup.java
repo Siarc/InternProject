@@ -9,6 +9,10 @@ public class ProductGroup {
     @SerializedName("product_group")
     private String productGroupName;
 
+    public ProductGroup() {
+
+    }
+
     public ProductGroup(int id, String productGroupName) {
         this.id = id;
         this.productGroupName = productGroupName;
@@ -30,8 +34,5 @@ public class ProductGroup {
         this.productGroupName = productGroupName;
     }
 
-    @Override
-    public String toString() {
-        return productGroupName;
-    }
+
 }
