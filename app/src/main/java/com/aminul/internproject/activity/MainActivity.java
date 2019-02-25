@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         init();
         onClickListeners();
         network();
-        loadData(savedInstanceState);
+        //loadData(savedInstanceState);
 
     }
 
@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Save Persistent data
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -128,6 +129,21 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("accOutState", Objects.requireNonNull(accompaniedWith.getText()).toString().trim());
         outState.putString("remarksOutState", Objects.requireNonNull(remarks.getText()).toString().trim());
 
+
+    }
+
+    //Load Persistent data
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        productGroup.setText(savedInstanceState.getString("accOutState"));
+        literature.setText(savedInstanceState.getString("accOutState"));
+        physicianSample.setText(savedInstanceState.getString("accOutState"));
+        gift.setText(savedInstanceState.getString("accOutState"));
+
+        accompaniedWith.setText(savedInstanceState.getString("accOutState"));
+        remarks.setText(savedInstanceState.getString("remarksOutState"));
 
     }
 
